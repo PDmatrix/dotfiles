@@ -1,29 +1,28 @@
 # Dotfiles
 
-Personal shell, terminal, prompt, and Pi configuration managed with [GNU Stow](https://www.gnu.org/software/stow/).
+Personal dotfiles for Zsh, Starship, Ghostty, and the Pi coding agent, managed with [GNU Stow](https://www.gnu.org/software/stow/).
 
-## Packages
+## Managed configuration
 
-| Package | Managed paths |
+| Stow package | Destination |
 | --- | --- |
 | `zsh` | `~/.zshrc` |
 | `starship` | `~/.config/starship.toml` |
-| `pi` | `~/.pi/agent/settings.json` and the local Ghostty integration |
 | `ghostty` | `~/.config/ghostty/config.ghostty` |
+| `pi` | `~/.pi/agent/settings.json` |
+| `pi` | `~/.pi/agent/extensions/ghostty-integration/` |
 
-The Ghostty package is included because the tracked Pi extension uses Ghostty progress, title, and notification protocols.
+The Pi Ghostty integration provides terminal-title updates, native progress indication, and completion notifications. Its implementation and configuration are documented in [`pi/.pi/agent/extensions/ghostty-integration/README.md`](pi/.pi/agent/extensions/ghostty-integration/README.md).
 
-Pi credentials, model caches, trust decisions, installed npm/git packages, binaries, and sessions are deliberately not tracked.
+## Installation
 
-## Bootstrap
-
-On Arch Linux, install the base tools:
+Install the required packages on Arch Linux:
 
 ```sh
-sudo pacman -S git stow zsh starship zsh-autosuggestions zsh-syntax-highlighting
+sudo pacman -S git stow zsh starship ghostty zsh-autosuggestions zsh-syntax-highlighting
 ```
 
-Clone and bootstrap:
+Clone the repository and create the symlinks:
 
 ```sh
 git clone git@github.com:PDmatrix/dotfiles.git ~/dotfiles
@@ -31,31 +30,50 @@ cd ~/dotfiles
 ./bootstrap
 ```
 
-`bootstrap` backs up conflicting managed files under `${XDG_STATE_HOME:-~/.local/state}/dotfiles/backups/`, then runs Stow with `--no-folding`. The latter is important: mutable Pi files must stay outside this repository.
+If a managed destination already exists as a regular file, `bootstrap` moves it to a timestamped directory under:
 
-To install only selected packages, pass their names:
+```text
+~/.local/state/dotfiles/backups/
+```
+
+The script invokes Stow with `--no-folding`, ensuring directories such as `~/.pi/agent` remain real directories while individual managed files are symlinked.
+
+Specific packages can be installed by passing their names:
 
 ```sh
 ./bootstrap zsh starship
 ```
 
-## Maintenance
+## Usage
+
+Managed files can be edited through their normal paths or directly in the repository. Both paths refer to the same file:
 
 ```sh
-make check    # dry-run Stow and report conflicts
-make restow   # refresh all links after layout changes
-make unstow   # remove all managed links
+$EDITOR ~/.zshrc
+$EDITOR ~/dotfiles/zsh/.zshrc
 ```
 
-Edit files through either the repository path or their symlinked home path, then commit normally.
+After pulling changes that add, remove, or relocate managed files, refresh the links:
 
-## Good next additions
+```sh
+git pull
+make restow
+```
 
-Keep additions intentional rather than mirroring all of `~/.config`:
+Available maintenance commands:
 
-- `~/.gitconfig` (consider separating identity from shared Git behavior)
-- `~/.zprofile` for login-shell environment variables
-- focused KDE settings such as `plasmanotifyrc`, not the entire mutable Plasma config
-- tool configs as they are adopted, such as `ripgrep`, `fd`, `fzf`, `zoxide`, `direnv`, or an editor
+```sh
+make check    # simulate Stow and report conflicts
+make restow   # recreate links for all packages
+make unstow   # remove links for all packages
+```
 
-Do not add SSH keys, password stores, browser profiles, shell history, or application caches.
+## Pi data boundaries
+
+Only Pi settings and the local Ghostty extension are managed. Mutable or sensitive Pi data remains under `~/.pi/agent` and is excluded from the repository, including:
+
+- credentials and authentication state
+- model caches and trust decisions
+- session history
+- installed npm and Git packages
+- downloaded binaries and debug logs

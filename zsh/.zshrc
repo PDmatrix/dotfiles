@@ -32,3 +32,5 @@ export PATH="${HOME}/.local/share/pi-node/current/bin:$PATH"
 if [ -d "${HOME}/.local/bin" ] && [[ ":${PATH}:" != *":${HOME}/.local/bin:"* ]]; then
     PATH="${HOME}/.local/bin:${PATH}"
 fi
+
+alias gs='git status'
