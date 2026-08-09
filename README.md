@@ -19,7 +19,7 @@ The Pi Ghostty integration provides terminal-title updates, native progress indi
 Install the required packages on Arch Linux:
 
 ```sh
-sudo pacman -S git stow zsh starship ghostty zsh-autosuggestions zsh-syntax-highlighting
+sudo pacman -S git stow zsh starship ghostty bat eza zsh-autosuggestions zsh-syntax-highlighting
 ```
 
 Clone the repository and create the symlinks:
