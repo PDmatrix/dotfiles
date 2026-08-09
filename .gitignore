@@ -1,0 +1,15 @@
+# Editor and OS noise
+*~
+*.swp
+.DS_Store
+
+# Pi credentials, caches, generated packages, and session history
+pi/.pi/agent/auth.json
+pi/.pi/agent/models.json
+pi/.pi/agent/models-store.json
+pi/.pi/agent/trust.json
+pi/.pi/agent/pi-debug.log
+pi/.pi/agent/bin/
+pi/.pi/agent/git/
+pi/.pi/agent/npm/
+pi/.pi/agent/sessions/

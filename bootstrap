@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+repo_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+target_dir=${STOW_TARGET:-"$HOME"}
+default_packages=(ghostty pi starship zsh)
+packages=("$@")
+
+if ((${#packages[@]} == 0)); then
+  packages=("${default_packages[@]}")
+fi
+
+if ! command -v stow >/dev/null 2>&1; then
+  cat >&2 <<'EOF'
+GNU Stow is required but is not installed.
+
+On Arch Linux:
+  sudo pacman -S stow
+
+Then run ./bootstrap again.
+EOF
+  exit 1
+fi
+
+for package in "${packages[@]}"; do
+  if [[ ! -d "$repo_dir/$package" ]]; then
+    printf 'Unknown package: %s\n' "$package" >&2
+    exit 1
+  fi
+done
+
+backup_root=${XDG_STATE_HOME:-"$HOME/.local/state"}/dotfiles/backups/$(date +%Y%m%d-%H%M%S)
+backed_up=false
+
+# Stow refuses to replace ordinary files. Preserve each conflicting managed file
+# before linking; unrelated files under the same directories remain untouched.
+for package in "${packages[@]}"; do
+  while IFS= read -r -d '' source; do
+    relative=${source#"$repo_dir/$package/"}
+    target=$target_dir/$relative
+
+    if [[ -L "$target" ]] && [[ "$(readlink -f -- "$target" 2>/dev/null || true)" == "$(readlink -f -- "$source")" ]]; then
+      continue
+    fi
+
+    if [[ -e "$target" || -L "$target" ]]; then
+      mkdir -p -- "$backup_root/$(dirname -- "$relative")"
+      mv -- "$target" "$backup_root/$relative"
+      printf 'Backed up %s\n' "$target"
+      backed_up=true
+    fi
+  done < <(find "$repo_dir/$package" -type f ! -name '.stow-local-ignore' -print0)
+done
+
+stow --dir="$repo_dir" --target="$target_dir" --no-folding --stow "${packages[@]}"
+
+printf 'Stowed: %s\n' "${packages[*]}"
+if [[ "$backed_up" == true ]]; then
+  printf 'Backups: %s\n' "$backup_root"
+fi
