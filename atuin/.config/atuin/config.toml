@@ -1,0 +1,19 @@
+# Keep Atuin entirely local. No account or sync server is required.
+auto_sync = false
+update_check = false
+
+# Search all history stored on this machine, including other terminal tabs.
+filter_mode = "global"
+
+# Ctrl-R opens Atuin's fuzzy selector. Up/Down are handled by a direct prefix
+# search widget in .zshrc, so they do not open the selector.
+search_mode = "fuzzy"
+
+# Keep the Ctrl-R interface compact and return commands for editing instead of
+# executing them immediately.
+style = "compact"
+inline_height = 20
+enter_accept = false
+
+# Ghostty reserves Alt+number for tab switching.
+ctrl_n_shortcuts = true

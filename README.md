@@ -1,12 +1,13 @@
 # Dotfiles
 
-Personal dotfiles for Zsh, Starship, Ghostty, and the Pi coding agent, managed with [GNU Stow](https://www.gnu.org/software/stow/).
+Personal dotfiles for Zsh, Atuin, Starship, Ghostty, and the Pi coding agent, managed with [GNU Stow](https://www.gnu.org/software/stow/).
 
 ## Managed configuration
 
 | Stow package | Destination |
 | --- | --- |
 | `zsh` | `~/.zshrc` |
+| `atuin` | `~/.config/atuin/config.toml` |
 | `starship` | `~/.config/starship.toml` |
 | `ghostty` | `~/.config/ghostty/config.ghostty` |
 | `pi` | `~/.pi/agent/settings.json` |
@@ -19,7 +20,7 @@ The Pi Ghostty integration provides terminal-title updates, native progress indi
 Install the required packages on Arch Linux:
 
 ```sh
-sudo pacman -S git stow zsh starship ghostty bat eza zsh-autosuggestions zsh-syntax-highlighting
+sudo pacman -S git stow zsh atuin starship ghostty bat eza zsh-autosuggestions zsh-syntax-highlighting
 ```
 
 Clone the repository and create the symlinks:

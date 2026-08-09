@@ -1,4 +1,4 @@
-PACKAGES := ghostty pi starship zsh
+PACKAGES := atuin ghostty pi starship zsh
 STOW := stow --dir=$(CURDIR) --target=$(HOME) --no-folding
 
 .PHONY: bootstrap stow restow unstow check
