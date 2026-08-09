@@ -10,12 +10,38 @@ if ((${#packages[@]} == 0)); then
   packages=("${default_packages[@]}")
 fi
 
+arch_packages=()
+while IFS= read -r line || [[ -n "$line" ]]; do
+  line=${line%%#*}
+  read -r -a entries <<< "$line"
+  arch_packages+=("${entries[@]}")
+done < "$repo_dir/packages.arch"
+
+if command -v pacman >/dev/null 2>&1; then
+  missing_packages=()
+  while IFS= read -r package; do
+    [[ -n "$package" ]] && missing_packages+=("$package")
+  done < <(pacman -T "${arch_packages[@]}" 2>/dev/null || true)
+
+  if ((${#missing_packages[@]} > 0)); then
+    printf 'Installing missing Arch packages: %s\n' "${missing_packages[*]}"
+    if ((EUID == 0)); then
+      pacman -S --needed "${missing_packages[@]}"
+    elif command -v sudo >/dev/null 2>&1; then
+      sudo pacman -S --needed "${missing_packages[@]}"
+    else
+      printf 'sudo is required to install missing packages: %s\n' "${missing_packages[*]}" >&2
+      exit 1
+    fi
+  fi
+fi
+
 if ! command -v stow >/dev/null 2>&1; then
-  cat >&2 <<'EOF'
+  cat >&2 <<EOF
 GNU Stow is required but is not installed.
 
-On Arch Linux:
-  sudo pacman -S stow
+Install the dependencies listed in:
+  $repo_dir/packages.arch
 
 Then run ./bootstrap again.
 EOF

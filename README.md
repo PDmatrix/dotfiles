@@ -17,19 +17,16 @@ The Pi Ghostty integration provides terminal-title updates, native progress indi
 
 ## Installation
 
-Install the required packages on Arch Linux:
+Install Git, clone the repository, and run the bootstrap script:
 
 ```sh
-sudo pacman -S git stow zsh atuin starship ghostty bat eza zsh-autosuggestions zsh-syntax-highlighting
-```
-
-Clone the repository and create the symlinks:
-
-```sh
+sudo pacman -S git
 git clone git@github.com:PDmatrix/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 ./bootstrap
 ```
+
+On Arch Linux, `bootstrap` reads [`packages.arch`](packages.arch) and installs any missing packages with `pacman` before creating the symlinks. Add new system dependencies to that file instead of duplicating the package list in this README.
 
 If a managed destination already exists as a regular file, `bootstrap` moves it to a timestamped directory under:
 

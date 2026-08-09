@@ -1,0 +1,12 @@
+# Arch Linux packages required by these dotfiles.
+# Keep one package per line; bootstrap installs missing entries with pacman.
+git
+stow
+zsh
+atuin
+starship
+ghostty
+bat
+eza
+zsh-autosuggestions
+zsh-syntax-highlighting
