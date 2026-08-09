@@ -6,6 +6,31 @@
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": false,
   "packages": [
-    "npm:pi-web-access"
-  ]
+    "npm:pi-web-access",
+    "npm:@llblab/pi-codex-usage",
+    "npm:pi-powerline-footer"
+  ],
+  "powerline": {
+    "preset": "default",
+    "welcome": false,
+    "layout": {
+      "right": [
+        "custom:codex-usage",
+        "time"
+      ]
+    },
+    "time": {
+      "format": "24h",
+      "showSeconds": false
+    },
+    "customItems": [
+      {
+        "id": "codex-usage",
+        "statusKey": "aa-codex-usage",
+        "position": "right",
+        "hideWhenMissing": true,
+        "excludeFromExtensionStatuses": true
+      }
+    ]
+  }
 }
