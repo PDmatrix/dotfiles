@@ -3,7 +3,7 @@ set -euo pipefail
 
 repo_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 target_dir=${STOW_TARGET:-"$HOME"}
-default_packages=(atuin ghostty pi starship zsh)
+default_packages=(atuin ghostty herdr pi starship zsh)
 packages=("$@")
 
 if ((${#packages[@]} == 0)); then

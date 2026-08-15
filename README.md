@@ -1,6 +1,6 @@
 # Dotfiles
 
-Personal dotfiles for Zsh, Atuin, Starship, Ghostty, and the Pi coding agent, managed with [GNU Stow](https://www.gnu.org/software/stow/).
+Personal dotfiles for Zsh, Atuin, Starship, Ghostty, Herdr, and the Pi coding agent, managed with [GNU Stow](https://www.gnu.org/software/stow/).
 
 ## Managed configuration
 
@@ -10,10 +10,15 @@ Personal dotfiles for Zsh, Atuin, Starship, Ghostty, and the Pi coding agent, ma
 | `atuin` | `~/.config/atuin/config.toml` |
 | `starship` | `~/.config/starship.toml` |
 | `ghostty` | `~/.config/ghostty/config.ghostty` |
+| `herdr` | `~/.config/herdr/config.toml` |
+| `herdr` | `~/.config/herdr/plugins/config/herdr-agent-inbox/config.toml` |
 | `pi` | `~/.pi/agent/settings.json` |
-| `pi` | `~/.pi/agent/extensions/ghostty-integration/` |
 
-The Pi Ghostty integration provides terminal-title updates, native progress indication, and completion notifications. Its implementation and configuration are documented in [`pi/.pi/agent/extensions/ghostty-integration/README.md`](pi/.pi/agent/extensions/ghostty-integration/README.md).
+The [`herdr-agent-inbox`](https://github.com/douglascorrea/herdr-agent-inbox) plugin adds conversation-derived titles, agent triage, running times, workspace rollups, and resumable chat history to Herdr. Install its runtime with:
+
+```sh
+herdr plugin install douglascorrea/herdr-agent-inbox
+```
 
 ## Installation
 
@@ -68,7 +73,7 @@ make unstow   # remove links for all packages
 
 ## Pi data boundaries
 
-Only Pi settings and the local Ghostty extension are managed. Mutable or sensitive Pi data remains under `~/.pi/agent` and is excluded from the repository, including:
+Only Pi settings are managed. Mutable or sensitive Pi data remains under `~/.pi/agent` and is excluded from the repository, including:
 
 - credentials and authentication state
 - model caches and trust decisions
