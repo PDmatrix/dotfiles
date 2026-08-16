@@ -2,8 +2,8 @@ STATE_HOME := $(if $(XDG_STATE_HOME),$(XDG_STATE_HOME),$(HOME)/.local/state)
 PROFILE_FILE := $(STATE_HOME)/dotfiles/profile
 PROFILE ?= $(shell if test -r "$(PROFILE_FILE)"; then head -n 1 "$(PROFILE_FILE)"; else printf '%s' desktop; fi)
 
-PACKAGES.desktop := atuin ghostty herdr pi starship zsh
-PACKAGES.server := atuin herdr pi starship zsh
+PACKAGES.desktop := atuin ghostty herdr nvim pi starship zsh
+PACKAGES.server := atuin herdr nvim pi starship zsh
 PACKAGES := $(PACKAGES.$(PROFILE))
 
 ifeq ($(strip $(PACKAGES)),)

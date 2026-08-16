@@ -1,6 +1,6 @@
 # Dotfiles
 
-Personal dotfiles for Zsh, Atuin, Starship, Ghostty, Herdr, and the Pi coding agent, managed with [GNU Stow](https://www.gnu.org/software/stow/).
+Personal dotfiles for Zsh, Atuin, Starship, Ghostty, Neovim, Herdr, and the Pi coding agent, managed with [GNU Stow](https://www.gnu.org/software/stow/).
 
 ## Managed configuration
 
@@ -10,6 +10,7 @@ Personal dotfiles for Zsh, Atuin, Starship, Ghostty, Herdr, and the Pi coding ag
 | `atuin` | `~/.config/atuin/config.toml` |
 | `starship` | `~/.config/starship.toml` |
 | `ghostty` | `~/.config/ghostty/config.ghostty` |
+| `nvim` | `~/.config/nvim/` |
 | `herdr` | `~/.config/herdr/config.toml` |
 | `pi` | `~/.pi/agent/settings.json` |
 
@@ -46,6 +47,8 @@ Specific packages can also be selected directly. They are the only packages whos
 ```sh
 ./bootstrap zsh starship
 ```
+
+Neovim plugins and Tree-sitter parsers are installed automatically on first launch. The configuration requires Neovim 0.12+ and includes Catppuccin, Telescope, Oil, Git signs, completion, formatting, and LSP support. Run `:checkhealth` inside Neovim if a language tool is not detected.
 
 Package arguments used with `--profile` are added for that bootstrap run. Bootstrap records the selected profile under `~/.local/state/dotfiles/profile`, so later Make commands use its standard package set automatically. Run `./bootstrap --help` to show the profile contents.
 

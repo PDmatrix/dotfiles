@@ -5,6 +5,15 @@
 @bootstrap stow
 atuin atuin
 ghostty ghostty
+ghostty ttf-jetbrains-mono-nerd
+nvim neovim
+nvim fd
+nvim gcc
+nvim lua-language-server
+nvim ripgrep
+nvim stylua
+nvim tree-sitter-cli
+nvim wl-clipboard
 starship starship
 zsh zsh
 zsh bat
