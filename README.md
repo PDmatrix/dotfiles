@@ -11,14 +11,7 @@ Personal dotfiles for Zsh, Atuin, Starship, Ghostty, Herdr, and the Pi coding ag
 | `starship` | `~/.config/starship.toml` |
 | `ghostty` | `~/.config/ghostty/config.ghostty` |
 | `herdr` | `~/.config/herdr/config.toml` |
-| `herdr` | `~/.config/herdr/plugins/config/herdr-agent-inbox/config.toml` |
 | `pi` | `~/.pi/agent/settings.json` |
-
-The [`herdr-agent-inbox`](https://github.com/douglascorrea/herdr-agent-inbox) plugin adds conversation-derived titles, agent triage, running times, workspace rollups, and resumable chat history to Herdr. Install its runtime with:
-
-```sh
-herdr plugin install douglascorrea/herdr-agent-inbox
-```
 
 ## Installation
 

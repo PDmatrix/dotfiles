@@ -2,30 +2,6 @@ onboarding = false
 [keys]
 prefix = "ctrl+s"
 
-[[keys.command]]
-key = "prefix+m"
-type = "shell"
-description = "settle agent"
-command = "herdr plugin action invoke settle --plugin herdr-agent-inbox"
-
-[[keys.command]]
-key = "prefix+shift+m"
-type = "shell"
-description = "mark agent unread"
-command = "herdr plugin action invoke unread --plugin herdr-agent-inbox"
-
-[[keys.command]]
-key = "prefix+alt+m"
-type = "shell"
-description = "settle finished agents in workspace"
-command = "herdr plugin action invoke settle-workspace --plugin herdr-agent-inbox"
-
-[[keys.command]]
-key = "prefix+i"
-type = "shell"
-description = "open agent inbox"
-command = "herdr plugin pane open --plugin herdr-agent-inbox --entrypoint inbox"
-
 [theme]
 name = "catppuccin"
 auto_switch = true
@@ -38,25 +14,15 @@ tab_bar_position = "bottom"
 
 [ui.sidebar.agents]
 rows = [
-  ["state_icon", "$title"],
-  [
-    { token = "$flag", fg = "#f1fa8c", bold = true },
-    "agent",
-    "state_text",
-    "workspace",
-    { token = "$age", dim = true },
-  ],
+  ["state_icon", "state_text"],
+  ["workspace"],
 ]
 
 [ui.sidebar.spaces]
 rows = [
-  ["state_icon", "workspace", "$agents", { token = "$busy", dim = true }],
+  ["state_icon", "workspace"],
   ["branch", "git_status"],
 ]
-
-[ui.toast]
-delivery = "terminal"
-delay_seconds = 1
 
 [terminal]
 new_cwd = "follow"
