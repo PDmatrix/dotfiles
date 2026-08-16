@@ -96,6 +96,7 @@ fi
 (( $+commands[starship] )) && eval "$(starship init zsh)"
 
 # Pi
+export POWERLINE_NERD_FONTS=1
 export PATH="${HOME}/.local/share/pi-node/current/bin:$PATH"
 
 # Add ~/.local/bin to PATH
