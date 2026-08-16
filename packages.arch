@@ -1,12 +1,13 @@
-# Arch Linux packages required by these dotfiles.
-# Keep one package per line; bootstrap installs missing entries with pacman.
-git
-stow
-zsh
-atuin
-starship
-ghostty
-bat
-eza
-zsh-autosuggestions
-zsh-syntax-highlighting
+# Arch Linux dependencies, scoped to the Stow package that uses them.
+# Format: <stow-package|@bootstrap> <pacman-package>
+# Keep one dependency per line. @bootstrap entries are always required.
+@bootstrap git
+@bootstrap stow
+atuin atuin
+ghostty ghostty
+starship starship
+zsh zsh
+zsh bat
+zsh eza
+zsh zsh-autosuggestions
+zsh zsh-syntax-highlighting

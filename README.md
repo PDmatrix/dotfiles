@@ -24,7 +24,7 @@ cd ~/dotfiles
 ./bootstrap
 ```
 
-On Arch Linux, `bootstrap` reads [`packages.arch`](packages.arch) and installs any missing packages with `pacman` before creating the symlinks. Add new system dependencies to that file instead of duplicating the package list in this README.
+On Arch Linux, `bootstrap` reads [`packages.arch`](packages.arch) and installs only the dependencies belonging to the selected Stow packages. Dependencies marked `@bootstrap` are always installed. Tools distributed outside pacman are listed in [`packages.external`](packages.external); when one is missing, bootstrap prints its installer command for review instead of executing a remote script automatically.
 
 If a managed destination already exists as a regular file, `bootstrap` moves it to a timestamped directory under:
 
@@ -34,11 +34,20 @@ If a managed destination already exists as a regular file, `bootstrap` moves it 
 
 The script invokes Stow with `--no-folding`, ensuring directories such as `~/.pi/agent` remain real directories while individual managed files are symlinked.
 
-Specific packages can be installed by passing their names:
+With no arguments, bootstrap uses the `desktop` profile. Use the `server` profile to install the same shell and coding tools without Ghostty:
+
+```sh
+./bootstrap --profile desktop
+./bootstrap --profile server
+```
+
+Specific packages can also be selected directly. They are the only packages whose Arch dependencies will be installed:
 
 ```sh
 ./bootstrap zsh starship
 ```
+
+Package arguments used with `--profile` are added for that bootstrap run. Bootstrap records the selected profile under `~/.local/state/dotfiles/profile`, so later Make commands use its standard package set automatically. Run `./bootstrap --help` to show the profile contents.
 
 ## Usage
 
@@ -56,13 +65,16 @@ git pull
 make restow
 ```
 
-Available maintenance commands:
+Maintenance commands use the profile saved by bootstrap (`desktop` when none has been saved):
 
 ```sh
-make check    # simulate Stow and report conflicts
-make restow   # recreate links for all packages
-make unstow   # remove links for all packages
+make check     # simulate Stow and report conflicts
+make stow      # create links for the active profile
+make restow    # refresh links for the active profile
+make unstow    # remove links for the active profile
 ```
+
+Override it for a single invocation when needed, for example `make stow PROFILE=server`.
 
 ## Pi data boundaries
 

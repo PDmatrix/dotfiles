@@ -1,0 +1,4 @@
+# Dependencies installed outside pacman.
+# Format: <stow-package>|<command to detect>|<installation command to display>
+herdr|herdr|curl -fsSL https://herdr.dev/install.sh | sh
+pi|pi|curl -fsSL https://pi.dev/install.sh | sh
