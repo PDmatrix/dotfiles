@@ -95,6 +95,8 @@ fi
 
 (( $+commands[starship] )) && eval "$(starship init zsh)"
 
+export LANG="${LANG:-C.UTF-8}"
+
 # Pi
 export POWERLINE_NERD_FONTS=1
 export PATH="${HOME}/.local/share/pi-node/current/bin:$PATH"
